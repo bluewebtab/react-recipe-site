@@ -77,7 +77,7 @@ import React, { Component} from 'react'
             </div>
   
         </div>
-        <button className="recipe__love">
+       <button className="recipe__love">
             <svg className="header__likes">
                 <use href="img/icons.svg#icon-heart{isLiked ? '' : '-outlined'}"></use>
             </svg>
@@ -131,12 +131,12 @@ import React, { Component} from 'react'
    
   render () {
     return (
-      <div>
-      <div className = "col-xs-4 col-sm-4  col-md-4 col-lg-4 show-case">
+      
+      <div className = "col-xs-6 col-sm-6  col-md-6 col-lg-6 show-case">
       {console.log(this.props.globalState)}
     {this.props.globalState.showbox != '' ? this.renderMainFood(this.props.globalState.recipes) : console.log('sorry')}
       </div>
-      </div>
+      
     )
   }
 }

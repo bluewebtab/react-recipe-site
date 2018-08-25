@@ -105,8 +105,7 @@ limitRecipeTitle = (title, limit = 17) =>{
 
   render () {
     return (
-      <div>
-        <div className = "col-xs-4 col-sm-4  col-md-4 col-lg-4 recipe">
+      <div className = "col-xs-3 col-sm-3  col-md-3 col-lg-3 recipe">
           <h1 className= 'recipe__name'>Recipes</h1>
           <div className = "results">
           <ul className = "results__list">
@@ -116,7 +115,7 @@ limitRecipeTitle = (title, limit = 17) =>{
         </div>
         
 
-      </div>
+    
     )
   }
 }

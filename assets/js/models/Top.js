@@ -41,7 +41,7 @@ export default class Top extends Component{
       <form className="search" onSubmit = {this.handleSubmit}>
     
           <input type="text" ref = "Recipes" value={this.props.globalState.food} onChange = {this.props.getRecipes} onKeyPress = {this.props.handleKeyPress} className="search__field"  placeholder="Search over 1,000,000 recipes..." />
-          <div className="btn search__btn" onClick = {this.props.controlSearch}>
+          <div className=" search__btn-header" onClick = {this.props.controlSearch}>
             {console.log(this.props.globalState.food)}
               <div className="search__icon">
               <i className="icon-search fas fa-search"></i>              

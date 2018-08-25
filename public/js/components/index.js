@@ -172,23 +172,19 @@ var Recipe = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'col-xs-3 col-sm-3  col-md-3 col-lg-3 recipe' },
+        _react2.default.createElement(
+          'h1',
+          { className: 'recipe__name' },
+          'Recipes'
+        ),
         _react2.default.createElement(
           'div',
-          { className: 'col-xs-4 col-sm-4  col-md-4 col-lg-4 recipe' },
+          { className: 'results' },
           _react2.default.createElement(
-            'h1',
-            { className: 'recipe__name' },
-            'Recipes'
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'results' },
-            _react2.default.createElement(
-              'ul',
-              { className: 'results__list' },
-              this.captureRecipes(this.props.globalState.recipes)
-            )
+            'ul',
+            { className: 'results__list' },
+            this.captureRecipes(this.props.globalState.recipes)
           )
         )
       );
@@ -400,13 +396,9 @@ var Showcase = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                null,
-                _react2.default.createElement(
-                    'div',
-                    { className: 'col-xs-4 col-sm-4  col-md-4 col-lg-4 show-case' },
-                    console.log(this.props.globalState),
-                    this.props.globalState.showbox != '' ? this.renderMainFood(this.props.globalState.recipes) : console.log('sorry')
-                )
+                { className: 'col-xs-6 col-sm-6  col-md-6 col-lg-6 show-case' },
+                console.log(this.props.globalState),
+                this.props.globalState.showbox != '' ? this.renderMainFood(this.props.globalState.recipes) : console.log('sorry')
             );
         }
     }]);
@@ -586,8 +578,12 @@ var Index = function (_Component) {
         null,
         console.log(this.state.recipes),
         _react2.default.createElement(_Top2.default, { globalState: this.state, controlSearch: this.controlSearch, getRecipes: this.getRecipes, handleKeyPress: this.handleKeyPress }),
-        _react2.default.createElement(_Recipe2.default, { globalState: this.state, changeState: this.changeState, getRecipes: this.getRecipes, controlSearch: this.controlSearch, renderMainFood: this.renderMainFood }),
-        _react2.default.createElement(_Showcase2.default, { globalState: this.state })
+        _react2.default.createElement(
+          'div',
+          { className: 'box' },
+          _react2.default.createElement(_Recipe2.default, { globalState: this.state, changeState: this.changeState, getRecipes: this.getRecipes, controlSearch: this.controlSearch, renderMainFood: this.renderMainFood }),
+          _react2.default.createElement(_Showcase2.default, { globalState: this.state })
+        )
       );
     }
   }]);
@@ -679,7 +675,7 @@ var Top = function (_Component) {
               _react2.default.createElement('input', { type: 'text', ref: 'Recipes', value: this.props.globalState.food, onChange: this.props.getRecipes, onKeyPress: this.props.handleKeyPress, className: 'search__field', placeholder: 'Search over 1,000,000 recipes...' }),
               _react2.default.createElement(
                 'div',
-                { className: 'btn search__btn', onClick: this.props.controlSearch },
+                { className: ' search__btn-header', onClick: this.props.controlSearch },
                 console.log(this.props.globalState.food),
                 _react2.default.createElement(
                   'div',

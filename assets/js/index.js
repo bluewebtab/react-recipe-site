@@ -105,8 +105,10 @@ class Index extends Component {
       {console.log(this.state.recipes)}
 
        <Top  globalState = {this.state} controlSearch = {this.controlSearch} getRecipes = {this.getRecipes} handleKeyPress = {this.handleKeyPress}/>
+       <div className = "box">
        <Recipe globalState = {this.state} changeState = {this.changeState} getRecipes = {this.getRecipes} controlSearch = {this.controlSearch} renderMainFood= {this.renderMainFood}/>
        <Showcase globalState = {this.state} />
+       </div>
        </div>)
   }
 }

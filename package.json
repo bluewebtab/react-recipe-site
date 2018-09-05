@@ -1,11 +1,11 @@
 {
-  "name": "CodingPhase-StarterKit",
+  "name": "recipefinder",
   "version": "1.0.0",
   "description": "Super Cool Framework",
   "main": "index.js",
-  "author": "joe santos garcia",
+  "author": "ron",
   "license": "MIT",
-  "homepage": "http://rocky.codingphase.com/",
+  
   "dependencies": {
     "axios": "^0.16.1",
     "babel-core": "^6.24.1",
@@ -16,6 +16,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "browser-sync": "^2.18.8",
+    "express": "^4.16.3",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-babel": "^6.1.2",
@@ -28,6 +29,7 @@
     "gulp-watch": "^4.3.9",
     "html-webpack-plugin": "^2.28.0",
     "install": "^0.12.1",
+    "mysql": "^2.16.0",
     "node-sass": "^4.5.2",
     "npm": "^6.1.0",
     "react": "^15.5.4",

@@ -311,7 +311,7 @@ var Showcase = function (_Component) {
                                         _react2.default.createElement(
                                             'svg',
                                             null,
-                                            _react2.default.createElement('use', { href: 'img/icons.svg#icon-circle-with-plus' })
+                                            _react2.default.createElement('use', { href: 'image/icons.svg#icon-circle-with-plus' })
                                         )
                                     )
                                 )
@@ -322,7 +322,7 @@ var Showcase = function (_Component) {
                                 _react2.default.createElement(
                                     'svg',
                                     { className: 'header__likes' },
-                                    _react2.default.createElement('use', { href: 'img/icons.svg#icon-heart{isLiked ? \'\' : \'-outlined\'}' })
+                                    _react2.default.createElement('use', { href: 'img/icons.svg#icon-heart' })
                                 )
                             )
                         ),

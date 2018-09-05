@@ -71,7 +71,7 @@ import React, { Component} from 'react'
                 </button>
                 <button className="btn-tiny btn-increase">
                     <svg>
-                        <use href="img/icons.svg#icon-circle-with-plus"></use>
+                        <use href="image/icons.svg#icon-circle-with-plus"></use>
                     </svg>
                 </button>
             </div>
@@ -79,7 +79,7 @@ import React, { Component} from 'react'
         </div>
        <button className="recipe__love">
             <svg className="header__likes">
-                <use href="img/icons.svg#icon-heart{isLiked ? '' : '-outlined'}"></use>
+                <use href="img/icons.svg#icon-heart"></use>
             </svg>
         </button>
     </div>

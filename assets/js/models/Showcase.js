@@ -18,6 +18,9 @@ import React, { Component} from 'react'
     console.log('swag')
   }
 
+  
+
+
   renderMainFood = (recipes) =>{
 
 
@@ -77,7 +80,7 @@ import React, { Component} from 'react'
             </div>
   
         </div>
-       <button className="recipe__love">
+       <button className="recipe__love" onClick = {() => this.props.saveInfo(recipe)}>
             <svg className="header__likes">
                 <use href="img/icons.svg#icon-heart"></use>
             </svg>

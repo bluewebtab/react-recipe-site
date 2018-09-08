@@ -318,7 +318,9 @@ var Showcase = function (_Component) {
                             ),
                             _react2.default.createElement(
                                 'button',
-                                { className: 'recipe__love' },
+                                { className: 'recipe__love', onClick: function onClick() {
+                                        return _this.props.saveInfo(recipe);
+                                    } },
                                 _react2.default.createElement(
                                     'svg',
                                     { className: 'header__likes' },
@@ -470,6 +472,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -550,12 +554,17 @@ var Index = function (_Component) {
     _this.handleKeyPress = _this.handleKeyPress.bind(_this);
     _this.clearInput = _this.clearInput.bind(_this);
     _this.changeState = _this.changeState.bind(_this);
+    _this.saveInfo = _this.saveInfo.bind(_this);
+    _this.showItem = _this.showItem.bind(_this);
 
     _this.state = {
       food: '',
       name: 'Joe',
       recipes: '',
-      showbox: ''
+      showbox: '',
+      savedItems: '',
+      showItems: false
+
     };
     return _this;
   }
@@ -564,6 +573,24 @@ var Index = function (_Component) {
     key: 'changeState',
     value: function changeState(change) {
       this.setState({ showbox: change });
+    }
+  }, {
+    key: 'saveInfo',
+    value: function saveInfo(info) {
+      this.setState(function (prevState) {
+        return {
+          savedItems: [].concat(_toConsumableArray(prevState.savedItems), [info])
+        };
+      });
+    }
+  }, {
+    key: 'showItem',
+    value: function showItem() {
+      this.setState(function (prevState) {
+        return {
+          showItems: !prevState.showItems
+        };
+      });
     }
   }, {
     key: 'getRecipes',
@@ -577,12 +604,12 @@ var Index = function (_Component) {
         'div',
         null,
         console.log(this.state.recipes),
-        _react2.default.createElement(_Top2.default, { globalState: this.state, controlSearch: this.controlSearch, getRecipes: this.getRecipes, handleKeyPress: this.handleKeyPress }),
+        _react2.default.createElement(_Top2.default, { globalState: this.state, controlSearch: this.controlSearch, showItem: this.showItem, getRecipes: this.getRecipes, handleKeyPress: this.handleKeyPress }),
         _react2.default.createElement(
           'div',
           { className: 'box' },
           _react2.default.createElement(_Recipe2.default, { globalState: this.state, changeState: this.changeState, getRecipes: this.getRecipes, controlSearch: this.controlSearch, renderMainFood: this.renderMainFood }),
-          _react2.default.createElement(_Showcase2.default, { globalState: this.state })
+          _react2.default.createElement(_Showcase2.default, { globalState: this.state, saveInfo: this.saveInfo })
         )
       );
     }
@@ -635,7 +662,28 @@ var Top = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Top.__proto__ || Object.getPrototypeOf(Top)).call(this, props));
 
+    _this.limitTitle = function (title) {
+      var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 17;
+
+      if (title) {
+        var recipeTitle = [];
+        if (title.length > limit) {
+          title.split(' ').reduce(function (acc, cur) {
+
+            if (acc + cur.length <= limit) {
+              recipeTitle.push(cur);
+            }
+            return acc + cur.length;
+          }, 0);
+          return recipeTitle.join(' ') + ' ...';
+        }
+        return title;
+      }
+    };
+
     _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.savedRecipes = _this.savedRecipes.bind(_this);
+    _this.limitTitle = _this.limitTitle.bind(_this);
     _this.state = {
       name: 'Joe'
     };
@@ -648,8 +696,45 @@ var Top = function (_Component) {
       event.preventDefault();
     }
   }, {
+    key: 'savedRecipes',
+    value: function savedRecipes() {
+      var _this2 = this;
+
+      var recipes = this.props.globalState.savedItems;
+      return recipes.map(function (recipe, i) {
+        return _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            'a',
+            { className: 'likes_link', href: '#' + recipe.recipe_id },
+            _react2.default.createElement(
+              'figure',
+              { className: 'likes__fig' },
+              _react2.default.createElement('img', { src: '' + recipe.image_url, alt: '' + recipe.title })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'likes_data' },
+              _react2.default.createElement(
+                'h4',
+                { className: 'results__name item__likes' },
+                _this2.limitTitle(recipe.title)
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'results__author item__likes' },
+                recipe.publisher
+              )
+            )
+          )
+        );
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
 
       return _react2.default.createElement(
         'div',
@@ -691,19 +776,22 @@ var Top = function (_Component) {
             _react2.default.createElement(
               'div',
               { className: '  likes' },
-              _react2.default.createElement(
-                'div',
-                { className: 'likes__field' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'likes__icon' },
-                  _react2.default.createElement('i', { className: ' icon-heart far fa-heart' })
-                )
-              ),
+              _react2.default.createElement('div', { className: 'likes__field' }),
               _react2.default.createElement(
                 'div',
                 { className: 'likes__panel' },
-                _react2.default.createElement('ul', { className: 'likes__list' })
+                _react2.default.createElement(
+                  'div',
+                  { className: 'likes__icon', onClick: function onClick() {
+                      return _this3.props.showItem();
+                    } },
+                  _react2.default.createElement('i', { className: ' icon-heart far fa-heart' })
+                ),
+                _react2.default.createElement(
+                  'ul',
+                  { className: 'likes__list' },
+                  this.props.globalState.showItems == true && this.props.globalState.savedItems !== '' ? this.savedRecipes() : console.log('nope')
+                )
               )
             )
           )

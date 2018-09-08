@@ -25,7 +25,58 @@ body {
   padding:.5rem;
 }
 
+.item__likes{
+  font-size: 3px;
+}
 
+
+//////////////////////////////////////////////////////////////
+.likes_link{
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 1.5rem 0;
+  top: 2rem;
+  position:relative;
+  transition: all .3s;
+  width:20rem;
+  left:3.2rem;
+  border-right: 1px solid #fff;
+  text-decoration: none;
+
+}
+
+.likes_fig{
+  flex: 0 0 5.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    height: 5.5rem;
+    margin-right: 2rem;
+    position: relative;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+}
+
+.likes_fig::before{
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to right bottom, #FBDB89, #F48982);
+  opacity: .4;
+}
+
+.likes_data{
+
+}
+
+
+
+//////////////////////////////////////////////////////////////
 
 .header{
   
@@ -88,16 +139,20 @@ body {
   .likes{
     display:flex;
     justify-content: center;
+    
+    
 
 
     .likes__icon{
-      position:relative;
-      
-      
-
+      text-align:center;
+      margin-left: 8rem;
       .icon-heart{
        font-size:3rem;
        color:#17036E; 
+       margin-top: 1rem;
+       
+       
+       
       }
      
       
@@ -287,7 +342,7 @@ body {
 //////////results////////////////////////////////////
 .results,
 .likes {
-  padding: 3rem 0; }
+  padding: 1rem 0; }
   .results__list,
   .likes__list {
     list-style: none; }

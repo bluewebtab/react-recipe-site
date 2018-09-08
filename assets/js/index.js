@@ -20,6 +20,8 @@ class Index extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.clearInput = this.clearInput.bind(this)
     this.changeState = this.changeState.bind(this)
+    this.saveInfo = this.saveInfo.bind(this)
+    this.showItem = this.showItem.bind(this)
 
     
 
@@ -27,12 +29,27 @@ class Index extends Component {
       food: '',
       name: 'Joe',
       recipes: '',
-      showbox: ''
+      showbox: '',
+      savedItems: '',
+      showItems: false
+
     }
   }
 
  changeState(change){
    this.setState({showbox: change})
+ }
+
+ saveInfo(info){
+  this.setState(prevState => ({
+    savedItems: [...prevState.savedItems, info]
+  }))
+ }
+
+ showItem(){
+  this.setState(prevState => ({
+    showItems: !prevState.showItems
+  }));
  }
 
  
@@ -104,10 +121,10 @@ class Index extends Component {
     return (<div>
       {console.log(this.state.recipes)}
 
-       <Top  globalState = {this.state} controlSearch = {this.controlSearch} getRecipes = {this.getRecipes} handleKeyPress = {this.handleKeyPress}/>
+       <Top  globalState = {this.state} controlSearch = {this.controlSearch} showItem = {this.showItem} getRecipes = {this.getRecipes} handleKeyPress = {this.handleKeyPress}/>
        <div className = "box">
        <Recipe globalState = {this.state} changeState = {this.changeState} getRecipes = {this.getRecipes} controlSearch = {this.controlSearch} renderMainFood= {this.renderMainFood}/>
-       <Showcase globalState = {this.state} />
+       <Showcase globalState = {this.state} saveInfo = {this.saveInfo} />
        </div>
        </div>)
   }

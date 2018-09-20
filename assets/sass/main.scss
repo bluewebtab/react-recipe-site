@@ -6,6 +6,9 @@ body {
   // background: purple;
 }
 
+html {
+  font-size: 80%; } 
+
 @media only screen and (max-width: 68.75em) {
   html {
     font-size: 50%; } 
@@ -170,7 +173,6 @@ body {
 
 /////////////////////////////////////////////////////////
 .recipe{
-  background-color:rgb(241, 241, 241);
   height:100vh;
   width:100%;
   

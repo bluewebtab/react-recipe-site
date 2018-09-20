@@ -13,6 +13,8 @@ import Showcase from './Showcase'
     this.captureRecipes = this.captureRecipes.bind(this)
     // this.renderResults = this.renderResults.bind(this)
     this.limitRecipeTitle = this.limitRecipeTitle.bind(this);
+    this.createButton = this.createButton.bind(this)
+    // this.changePage = this.changePage.bind(this)
     this.state = {
       name: 'ron'
     }
@@ -39,7 +41,67 @@ import Showcase from './Showcase'
   //  this.renderRecipe(arrayRecipes[x])
   // }
     
+
+
   // }
+
+
+
+createButton(page, type){
+  let types = this.props.globalState.changePage
+
+ if(types == 2 || types == 3 || types == 4){
+  return this.props.globalState.pageType.map(item => {
+    return(
+      <button onClick = { () => item == 'prev' ? this.props.minPage(): this.props.addPage() }  className={`btn-inline results__btn--${item}`} data-goto={`${item === 'prev' ? page  : page }`}>
+<span>Page {item === 'prev' ? page -1 : page }</span>
+
+    <svg className="search__icon">
+        <use href={`img/icons.svg#icon-triangle-${item === 'prev' ? 'left' : 'right'}`}></use>
+    </svg>
+</button>
+
+    )
+  })
+}else if(types == 1 ){
+  return(
+   <button onClick = { () => this.props.addPage() }  className={`btn-inline results__btn--${type[1]}`} data-goto={`${type[1] === 'prev' ? page : page }`}>
+ <span>Page {type[1] === 'prev' ? page  : page }</span>
+ 
+     <svg className="search__icon">
+         <use href={`img/icons.svg#icon-triangle-${type[1] === 'prev' ? 'left' : 'right'}`}></use>
+     </svg>
+ </button>
+ 
+ 
+ 
+  )
+ 
+
+
+}else if(types == 5){
+  return(
+   <button onClick = { () => this.props.minPage() }  className={`btn-inline results__btn--${type[0]}`} data-goto={`${type[0] === 'prev' ? page : page }`}>
+ <span>Page {type[0] === 'prev' ? page  : page }</span>
+ 
+     <svg className="search__icon">
+         <use href={`img/icons.svg#icon-triangle-${type[0] === 'prev' ? 'left' : 'right'}`}></use>
+     </svg>
+ </button>
+ 
+ 
+ 
+  )
+ 
+
+
+}
+
+
+
+
+}
+
 
 limitRecipeTitle = (title, limit = 17) =>{
   
@@ -63,7 +125,7 @@ limitRecipeTitle = (title, limit = 17) =>{
 }
 
 
-  captureRecipes = (recipes,page =1, resPerPage = 4) => {
+  captureRecipes = (recipes,page , resPerPage ) => {
 
     if(this.props.globalState.recipes != undefined){
       const start = (page-1)*resPerPage;
@@ -73,6 +135,7 @@ limitRecipeTitle = (title, limit = 17) =>{
     let rec = Object.values(recipe)
     console.log(rec)
       console.log(this.props.globalState.recipes)
+
       return rec.map((item, i) => {
         return (
           <div className="item"  key = {i} onClick = {() => this.props.changeState(item.recipe_id)} >
@@ -89,7 +152,7 @@ limitRecipeTitle = (title, limit = 17) =>{
 </a>
                     
   </li>
-        
+
         </div>
         )
       })
@@ -104,12 +167,16 @@ limitRecipeTitle = (title, limit = 17) =>{
 
 
   render () {
+
     return (
       <div className = "col-xs-3 col-sm-3  col-md-3 col-lg-3 recipe">
           <h1 className= 'recipe__name'>Recipes</h1>
           <div className = "results">
           <ul className = "results__list">
-          {this.captureRecipes(this.props.globalState.recipes)}
+          
+          {this.captureRecipes(this.props.globalState.recipes, this.props.globalState.changePage, this.props.globalState.resPage)}
+          
+          {this.props.globalState.recipes != '' ? this.createButton(this.props.globalState.changePage, this.props.globalState.pageType) : ''}
           </ul>
         </div>
         </div>

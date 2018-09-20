@@ -22,7 +22,10 @@ class Index extends Component {
     this.changeState = this.changeState.bind(this)
     this.saveInfo = this.saveInfo.bind(this)
     this.showItem = this.showItem.bind(this)
-
+    this.addPage = this.addPage.bind(this)
+    this.minPage = this.minPage.bind(this)
+    this.pageFunc = this.pageFunc.bind(this)
+    this.pageMinFunc = this.pageMinFunc.bind(this)
     
 
     this.state = {
@@ -31,10 +34,48 @@ class Index extends Component {
       recipes: '',
       showbox: '',
       savedItems: '',
-      showItems: false
+      showItems: false,
+      changePage: 1,
+      pageType: ['prev','next'],
+      resPage: 5
 
     }
   }
+
+addPage(){
+
+this.setState((prevState) =>{
+  return {
+    changePage: prevState.changePage + 1
+  }
+})
+
+
+}
+
+minPage(){
+  this.setState((prevState) =>{
+    return {
+      changePage: prevState.changePage -1
+    }
+  })
+}
+
+
+pageFunc(){
+  
+ 
+ 
+}
+
+pageMinFunc(){
+  
+}
+
+
+
+
+/////////////////////////////////////////////////
 
  changeState(change){
    this.setState({showbox: change})
@@ -123,7 +164,7 @@ class Index extends Component {
 
        <Top  globalState = {this.state} controlSearch = {this.controlSearch} showItem = {this.showItem} getRecipes = {this.getRecipes} handleKeyPress = {this.handleKeyPress}/>
        <div className = "box">
-       <Recipe globalState = {this.state} changeState = {this.changeState} getRecipes = {this.getRecipes} controlSearch = {this.controlSearch} renderMainFood= {this.renderMainFood}/>
+       <Recipe  pageMinFunc = {this.pageMinFunc} pageFunc = {this.pageFunc} minPage = {this.minPage} pageType = {this.pageType} addPage = {this.addPage} resPage = {this.resPage} globalState = {this.state} changeState = {this.changeState} getRecipes = {this.getRecipes} controlSearch = {this.controlSearch} renderMainFood= {this.renderMainFood}/>
        <Showcase globalState = {this.state} saveInfo = {this.saveInfo} />
        </div>
        </div>)

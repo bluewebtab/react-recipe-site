@@ -84,10 +84,7 @@ var Recipe = function (_Component) {
       return title;
     };
 
-    _this.captureRecipes = function (recipes) {
-      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-      var resPerPage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 4;
-
+    _this.captureRecipes = function (recipes, page, resPerPage) {
 
       if (_this.props.globalState.recipes != undefined) {
         var start = (page - 1) * resPerPage;
@@ -97,6 +94,7 @@ var Recipe = function (_Component) {
         var rec = Object.values(recipe);
         console.log(rec);
         console.log(_this.props.globalState.recipes);
+
         return rec.map(function (item, i) {
           return _react2.default.createElement(
             'div',
@@ -138,6 +136,8 @@ var Recipe = function (_Component) {
     _this.captureRecipes = _this.captureRecipes.bind(_this);
     // this.renderResults = this.renderResults.bind(this)
     _this.limitRecipeTitle = _this.limitRecipeTitle.bind(_this);
+    _this.createButton = _this.createButton.bind(_this);
+    // this.changePage = this.changePage.bind(this)
     _this.state = {
       name: 'ron'
     };
@@ -165,11 +165,79 @@ var Recipe = function (_Component) {
   //  this.renderRecipe(arrayRecipes[x])
   // }
 
+
   // }
 
+
   _createClass(Recipe, [{
+    key: 'createButton',
+    value: function createButton(page, type) {
+      var _this2 = this;
+
+      var types = this.props.globalState.changePage;
+
+      if (types == 2 || types == 3 || types == 4) {
+        return this.props.globalState.pageType.map(function (item) {
+          return _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return item == 'prev' ? _this2.props.minPage() : _this2.props.addPage();
+              }, className: 'btn-inline results__btn--' + item, 'data-goto': '' + (item === 'prev' ? page : page) },
+            _react2.default.createElement(
+              'span',
+              null,
+              'Page ',
+              item === 'prev' ? page - 1 : page
+            ),
+            _react2.default.createElement(
+              'svg',
+              { className: 'search__icon' },
+              _react2.default.createElement('use', { href: 'img/icons.svg#icon-triangle-' + (item === 'prev' ? 'left' : 'right') })
+            )
+          );
+        });
+      } else if (types == 1) {
+        return _react2.default.createElement(
+          'button',
+          { onClick: function onClick() {
+              return _this2.props.addPage();
+            }, className: 'btn-inline results__btn--' + type[1], 'data-goto': '' + (type[1] === 'prev' ? page : page) },
+          _react2.default.createElement(
+            'span',
+            null,
+            'Page ',
+            type[1] === 'prev' ? page : page
+          ),
+          _react2.default.createElement(
+            'svg',
+            { className: 'search__icon' },
+            _react2.default.createElement('use', { href: 'img/icons.svg#icon-triangle-' + (type[1] === 'prev' ? 'left' : 'right') })
+          )
+        );
+      } else if (types == 5) {
+        return _react2.default.createElement(
+          'button',
+          { onClick: function onClick() {
+              return _this2.props.minPage();
+            }, className: 'btn-inline results__btn--' + type[0], 'data-goto': '' + (type[0] === 'prev' ? page : page) },
+          _react2.default.createElement(
+            'span',
+            null,
+            'Page ',
+            type[0] === 'prev' ? page : page
+          ),
+          _react2.default.createElement(
+            'svg',
+            { className: 'search__icon' },
+            _react2.default.createElement('use', { href: 'img/icons.svg#icon-triangle-' + (type[0] === 'prev' ? 'left' : 'right') })
+          )
+        );
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
+
       return _react2.default.createElement(
         'div',
         { className: 'col-xs-3 col-sm-3  col-md-3 col-lg-3 recipe' },
@@ -184,7 +252,8 @@ var Recipe = function (_Component) {
           _react2.default.createElement(
             'ul',
             { className: 'results__list' },
-            this.captureRecipes(this.props.globalState.recipes)
+            this.captureRecipes(this.props.globalState.recipes, this.props.globalState.changePage, this.props.globalState.resPage),
+            this.props.globalState.recipes != '' ? this.createButton(this.props.globalState.changePage, this.props.globalState.pageType) : ''
           )
         )
       );
@@ -556,6 +625,10 @@ var Index = function (_Component) {
     _this.changeState = _this.changeState.bind(_this);
     _this.saveInfo = _this.saveInfo.bind(_this);
     _this.showItem = _this.showItem.bind(_this);
+    _this.addPage = _this.addPage.bind(_this);
+    _this.minPage = _this.minPage.bind(_this);
+    _this.pageFunc = _this.pageFunc.bind(_this);
+    _this.pageMinFunc = _this.pageMinFunc.bind(_this);
 
     _this.state = {
       food: '',
@@ -563,13 +636,44 @@ var Index = function (_Component) {
       recipes: '',
       showbox: '',
       savedItems: '',
-      showItems: false
+      showItems: false,
+      changePage: 1,
+      pageType: ['prev', 'next'],
+      resPage: 5
 
     };
     return _this;
   }
 
   _createClass(Index, [{
+    key: 'addPage',
+    value: function addPage() {
+
+      this.setState(function (prevState) {
+        return {
+          changePage: prevState.changePage + 1
+        };
+      });
+    }
+  }, {
+    key: 'minPage',
+    value: function minPage() {
+      this.setState(function (prevState) {
+        return {
+          changePage: prevState.changePage - 1
+        };
+      });
+    }
+  }, {
+    key: 'pageFunc',
+    value: function pageFunc() {}
+  }, {
+    key: 'pageMinFunc',
+    value: function pageMinFunc() {}
+
+    /////////////////////////////////////////////////
+
+  }, {
     key: 'changeState',
     value: function changeState(change) {
       this.setState({ showbox: change });
@@ -608,7 +712,7 @@ var Index = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'box' },
-          _react2.default.createElement(_Recipe2.default, { globalState: this.state, changeState: this.changeState, getRecipes: this.getRecipes, controlSearch: this.controlSearch, renderMainFood: this.renderMainFood }),
+          _react2.default.createElement(_Recipe2.default, { pageMinFunc: this.pageMinFunc, pageFunc: this.pageFunc, minPage: this.minPage, pageType: this.pageType, addPage: this.addPage, resPage: this.resPage, globalState: this.state, changeState: this.changeState, getRecipes: this.getRecipes, controlSearch: this.controlSearch, renderMainFood: this.renderMainFood }),
           _react2.default.createElement(_Showcase2.default, { globalState: this.state, saveInfo: this.saveInfo })
         )
       );
